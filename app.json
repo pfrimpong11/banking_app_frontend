@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "BankApp",
+    "slug": "BankApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./pages/assets/hq-bank-logo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./pages/assets/hq-bank-logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./pages/assets/hq-bank-logo.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./pages/assets/hq-bank-logo.png"
+    }
+  }
+}
