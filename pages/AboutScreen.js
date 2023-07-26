@@ -1,30 +1,30 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity, Linking} from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, Linking, ScrollView} from "react-native";
 
 const AboutScreen = ({navigation}) => {
 
     const handleTwitterPress = () =>{
-        const twitterPageLink = 'https://twitter.com/_kojo_prince?s=21'; //external link to twitter profile
+        const twitterPageLink = 'https://twitter.com/bank_hq'; //external link to twitter profile
         Linking.openURL(twitterPageLink);
     };
 
     const handleInstagramPress = () =>{
-        const instagramPageLink = 'https://instagram.com/kojo._prince?igshid=NTc4MTIwNjQ2YQ=='; //external link to instagram profile
+        const instagramPageLink = 'https://www.instagram.com/thehqbank/?next=%2Fj8xt%2F&hl=en-gb'; //external link to instagram profile
         Linking.openURL(instagramPageLink);
     };
 
     const handleFacebookPress = () =>{
-        const facebookPageLink = 'https://www.facebook.com/profile.php?id=100030168541926'; //external link to facebook profile
+        const facebookPageLink = 'https://www.facebook.com/profile.php?id=100095264677925'; //external link to facebook profile
         Linking.openURL(facebookPageLink);
     };
 
     const handleLinkedInPress = () =>{
-        const linkedInPageLink = 'https://gh.linkedin.com/in/prince-frimpong-19075b219';    //external link to linkedIn profile
+        const linkedInPageLink = 'https://www.linkedin.com/in/hq-bank-750675285/';    //external link to linkedIn profile
         Linking.openURL(linkedInPageLink);
     };
 
     return(
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={{flex: 1, padding: 16}}>
                 <View style={styles.container}>
                     <View style={styles.aboutContainer} >
@@ -32,9 +32,18 @@ const AboutScreen = ({navigation}) => {
                         <Text style={styles.aboutText} >About</Text>
                     </View>
                     <View style={styles.aboutDetailsContainer}>
-                        <Text style={styles.aboutDetailsText}>
-                            This app was built by members of GROUP 19
-                        </Text>
+                        <View style={styles.visionBox}>
+                            <Text style={styles.visionTitle}>VISION:</Text>
+                            <Text style={styles.visionText}>
+                            To be the leading financial partner empowering individuals, businesses, and communities to achieve their dreams and aspirations through innovative banking solutions and exceptional customer experiences.
+                            </Text>
+                        </View>
+                        <View style={styles.missionBox}>
+                            <Text style={styles.missionTitle}>MISSION:</Text>
+                            <Text style={styles.missionText}>
+                            At HQ Banks, our mission is to provide trusted financial services that cater to the diverse needs of our customers. We are committed to fostering financial growth and stability by offering personalized, secure, and accessible banking solutions. Through a dedicated team of professionals, cutting-edge technology, and a strong community focus, we aim to deliver excellence in every interaction, helping our customers thrive and build a better future.
+                            </Text>
+                        </View>
                     </View>
                     <View style={styles.socialMediaContainer}>
                         <TouchableOpacity style={styles.SocialMediaBox} onPress={handleTwitterPress}>
@@ -52,7 +61,7 @@ const AboutScreen = ({navigation}) => {
                     </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 
@@ -80,9 +89,42 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 20,
     },
-    aboutDetailsText: {
-        fontWeight: '500',
-        fontSize: 15,
+    visionBox: {
+        marginHorizontal: 20,
+        marginBottom: 20,
+    },
+    visionTitle: {
+        marginBottom: 5,
+        marginLeft: 10,
+        fontWeight: '700',
+        fontSize: 20,
+        color: '#66B5E1',
+    },
+    visionText: {
+        borderRadius: 20,
+        borderColor: '#66B5E1',
+        borderWidth: 2,
+        padding: 10,
+        lineHeight: 18,
+        textAlign: 'justify',
+    },
+    missionBox: {
+        marginHorizontal: 20,
+    },
+    missionTitle: {
+        marginBottom: 5,
+        marginLeft: 10,
+        fontWeight: '700',
+        fontSize: 20,
+        color: '#66B5E1',
+    },
+    missionText: {
+        borderRadius: 20,
+        borderColor: '#66B5E1',
+        borderWidth: 2,
+        padding: 10,
+        lineHeight: 18,
+        textAlign: 'justify',
     },
     socialMediaContainer: {
         flexDirection: 'row',

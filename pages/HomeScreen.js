@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, Image, SafeAreaView, KeyboardAvoidingView, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, Image, SafeAreaView, KeyboardAvoidingView, StatusBar, Modal, Platform } from 'react-native';
 import { useState } from 'react';
 
 const HomeScreen = ({ navigation }) => {
     
-    //set the iput to null
+    //set the input to null and modal to false
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
 
     //changes input text to that of the user
     const handleEmailChange = (text) => { setEmail(text) };
@@ -19,17 +21,37 @@ const HomeScreen = ({ navigation }) => {
     const handleLoginPress = () => {
         //save login details of the user and grant them access to the app's features
 
+        // const userEmail = 'email';  //valid email of user
+        // const userPassword = '123'; //valid password of user
+
+        // if (email === userEmail && password === userPassword){
+        //     //navigate to the mainscreen on successful login
+        //     navigation.navigate('MainScreen');
+        //     setEmail('');
+        //     setPassword('');
+        // }
+        // else{
+        //     //show an error message for an invalid credential
+        //     alert('Invalid email or password');
+        // }
+
         navigation.navigate('MainScreen');
         setEmail('');
         setPassword('');
     };
 
-    const handleForgotPasswordPress = () =>{
-        //what happens after pressing forgot password
+    const handleResetPasswordPress = () =>{
+        // Implement your password reset logic here
+        // You can use the 'email' state variable to retrieve the entered email address
+        // and send a reset password link to the user's email.
+        // This is just a placeholder function, replace it with your actual logic.
+        alert(`Reset password link sent to: ${forgotPasswordEmail}`);
+        setModalVisible(false);
+        // navigation.navigate('ForgotPasswordModal');
     };
 
     return (
-        <KeyboardAvoidingView style={styles.container} behavior='padding'>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <ScrollView contentContainerStyle={styles.container}>
                 <StatusBar
                 backgroundColor={'white'} barStyle={'dark-content'}/>
@@ -51,9 +73,47 @@ const HomeScreen = ({ navigation }) => {
                     value={password}
                     onChangeText={handlePasswordChange}
                     />
-                    <TouchableOpacity onPress={handleForgotPasswordPress}>
+
+                    <TouchableOpacity onPress={() => setModalVisible(true)}>
                         <Text style={styles.forgotPassword}>Forgot Password?</Text>
                     </TouchableOpacity>
+
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => setModalVisible(false)}
+                        >
+
+                        <View style={styles.modalContainer}>
+                            <View style={styles.modalContent}>
+                                <View style={styles.modalTitleBox}>
+                                    <Text style={styles.modalTitle}>Forgot Password</Text>
+                                </View>
+                                <View style={styles.emailAddressTextBox}>
+                                    <Text style={styles.emailAddressText}>Enter email address</Text>
+                                </View>
+                                <View style={styles.modalEmailbox}>
+                                    <TextInput
+                                    style={styles.forgotpasswordemailInput}
+                                    keyboardType="email-address"
+                                    onChangeText={(text) => setForgotPasswordEmail(text)}
+                                    />
+                                </View>
+                                <View style={styles.modalResetButtonBox}>
+                                <TouchableOpacity style={styles.resetButton} onPress={handleResetPasswordPress}>
+                                    <Text style={styles.resetButtonText}>Reset Password</Text>
+                                </TouchableOpacity>
+                                </View>
+                                <View style={styles.modalCloseButtonBox}>
+                                <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
+                                    <Text style={styles.closeButtonText}>Close</Text>
+                                </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
+
                     <TouchableOpacity style={styles.loginButton} onPress={handleLoginPress}>
                         <Text style={styles.loginButtonText}>Login</Text>
                     </TouchableOpacity>
@@ -128,6 +188,73 @@ const styles = StyleSheet.create({
     signupButtonText: {
         color: 'white',
         fontWeight: 'bold',
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    },
+    modalContent: {
+        backgroundColor: '#fff',
+        padding: 20,
+        borderRadius: 8,
+        width: '80%',
+    },
+    modalTitleBox: {
+        alignItems: 'center',
+        marginTop: 10,
+        marginBottom: 20,
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    emailAddressTextBox: {
+        marginLeft: 20,
+        marginBottom: 5,
+    },
+    modalEmailbox: {
+        marginHorizontal: 10,
+        marginBottom: 20,
+    },
+    forgotpasswordemailInput: {
+        height: 40,
+        marginBottom: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderColor: '#66B5E1',
+        borderWidth: 1,
+        borderRadius: 50,
+        backgroundColor: '#fff',
+        color: '#000',
+        fontSize: 15,
+    },
+    modalResetButtonBox: {
+        marginHorizontal: 50,
+    },
+    resetButton: {
+        backgroundColor: '#66B5E1',
+        padding: 10,
+        alignItems: 'center',
+        borderRadius: 50,
+        marginBottom: 10,
+    },
+    resetButtonText: {
+        color: 'white',
+    },
+    modalCloseButtonBox: {
+        marginHorizontal: 50,
+    },
+    closeButton: {
+        backgroundColor: 'gray',
+        padding: 10,
+        alignItems: 'center',
+        borderRadius: 50,
+    },
+    closeButtonText: {
+        color: 'white',
     },
 });
 

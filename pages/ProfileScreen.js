@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity} from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
 
 const ProfileScreen = ({navigation}) => {
 
@@ -12,6 +12,7 @@ const ProfileScreen = ({navigation}) => {
         email: "group19@gmail.com",
         ghanaCardNumber: "GH-xxxxxxxxxxxx-x",
         address: "GA-123-4567",
+        accountNumber: "1400005260509",
     };
 
     const handleLogoutPress = () => {
@@ -21,7 +22,7 @@ const ProfileScreen = ({navigation}) => {
     };
 
     return(
-        <View style={styles.container} >
+        <ScrollView style={styles.container} >
             <View style={{flex: 1, padding: 16}}>
                 <View style={styles.container}>
                     <TouchableOpacity onPress={handleLogoutPress}>
@@ -90,9 +91,17 @@ const ProfileScreen = ({navigation}) => {
                             <Text style={styles.detailsText}> {profileData.address} </Text>
                         </View>
                     </View>
+                    <View style={styles.detailsContainer}>
+                        <View>
+                            <Text>Account Number</Text>
+                        </View>
+                        <View style={styles.details}>
+                            <Text style={styles.detailsText}> {profileData.accountNumber} </Text>
+                        </View>
+                    </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 

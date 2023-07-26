@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "BankApp",
-    "slug": "BankApp",
+    "name": "BankApp Frontend",
+    "slug": "BankApp-Frontend",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./pages/assets/hq-bank-logo.png",
@@ -15,16 +15,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pfrimpong.BankAppFrontend"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./pages/assets/hq-bank-logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.pfrimpong.BankAppFrontend"
     },
     "web": {
       "favicon": "./pages/assets/hq-bank-logo.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7757cad5-1563-457e-b4da-b4b3534e993a"
+      }
     }
   }
 }

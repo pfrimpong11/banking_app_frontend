@@ -4,7 +4,7 @@ import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity, Linking,
 const HelpScreen = ({navigation}) => {
 
     const handleEmailUsPress = () =>{   //opens email with a predefined subject and recipient
-        const mailToLink = 'mailto:frimprince252@gmail.com?subject=HQBankCustomerService&body=';
+        const mailToLink = 'mailto:thehqbank@gmail.com?subject=HQBankCustomerService&body=';
         Linking.openURL(mailToLink);
         
     };

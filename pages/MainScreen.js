@@ -3,6 +3,10 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, Image 
 
 const MainScreen = ({ navigation }) => {
 
+    const accountBalanceDetails = {
+        accountBalance: "1000.64",
+    };
+
     const handleTransferPress = () => { //navigate to transfer screen
         navigation.navigate('TransferScreen')
     };       
@@ -39,8 +43,8 @@ const MainScreen = ({ navigation }) => {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.balanceContainer}>
-                <Text style={styles.balanceLabel}>Balance</Text>
-                <Text style={styles.balanceAmount}>$ 1000.64</Text>
+                <Text style={styles.balanceLabel}>Balance (GHS)</Text>
+                <Text style={styles.balanceAmount}> {accountBalanceDetails.accountBalance} </Text>
             </View>
 
             <View style={styles.iconsContainer}>
