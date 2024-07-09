@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, KeyboardAvoidingView, Alert } from 'react-native';
 import { useState } from 'react';
+import axios from 'axios';
 
 const SignupScreen = ({ navigation }) => {
 
-    //setting text iput to null
+    //setting text input to null
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
@@ -14,20 +15,30 @@ const SignupScreen = ({ navigation }) => {
     const [address, setAddress] = useState('');
     const [password, setPassword] = useState('');
 
-    //change the text iput value to that of the user
-    const handleFirstNameChange = (text) => { setFirstName(text) };
-    const handleLastNameChange = (text) => { setLastName(text) };
-    const handleDateOfBirthChange = (text) => { setDateOfBirth(text) };
-    const handlePhoneNumberChange = (text) => { setPhoneNumber(text) };
-    const handleEmailChange = (text) => { setEmail(text) };
-    const handleGhanaCardNumberChange = (text) => { setGhanaCardNumber(text) };
-    const handleAddressChange = (text) => { setAddress(text) };
-    const handlePasswordChange = (text) => { setPassword(text) }; 
 
-    const handleSignUpPress = () => {
+    const handleSignUpPress = async () => {
         //save the detals of the user in the database and navigate to the login screen
-        
-        navigation.navigate('HomeScreen');
+        const userData = {
+            firstName,
+            lastName,
+            dateOfBirth,
+            phoneNumber,
+            email,
+            ghanaCardNumber,
+            address,
+            password,
+        };
+
+        try {
+            const response = await axios.post('http://localhost:3000/api/users/register', userData);
+            console.log(response.data);
+            Alert.alert('Success', 'User registered successfully');
+            navigation.navigate('HomeScreen');
+        } catch (error) {
+            console.error(error);
+            Alert.alert('Error', 'Failed to register user');
+        }
+
 
         setFirstName('');
         setLastName('');
@@ -44,28 +55,28 @@ const SignupScreen = ({ navigation }) => {
     };
 
     return (
-        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        // <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <ScrollView style={styles.scrollViewContent}>
                 <View style={styles.bottomHalf}>
                     <TextInput style={styles.input}
                         placeholder="First Name"
                         value={firstName}
-                        onChangeText={handleFirstNameChange}
+                        onChangeText={setFirstName}
                     />
                     <TextInput style={styles.input}
                         placeholder="Last Name"
                         value={lastName}
-                        onChangeText={handleLastNameChange}
+                        onChangeText={setLastName}
                     />
                     <TextInput style={styles.input}
                         placeholder="Date of Birth  (dd-mm-yy)"
                         value={dateOfBirth}
-                        onChangeText={handleDateOfBirthChange}
+                        onChangeText={setDateOfBirth}
                         keyboardType="numbers-and-punctuation"
                     />
                     <TextInput style={styles.input}
                         value={phoneNumber}
-                        onChangeText={handlePhoneNumberChange}
+                        onChangeText={setPhoneNumber}
                         placeholder="Phone Number   (233XXXXXXX)"
                         keyboardType="number-pad"
                     />
@@ -74,23 +85,23 @@ const SignupScreen = ({ navigation }) => {
                         autoCapitalize="none"
                         autoCorrect={false}
                         value={email}
-                        onChangeText={handleEmailChange}
+                        onChangeText={setEmail}
                     />
                     <TextInput style={styles.input}
                         placeholder="Gh Card Number"
                         value={ghanaCardNumber}
-                        onChangeText={handleGhanaCardNumberChange}
+                        onChangeText={setGhanaCardNumber}
                     />
                     <TextInput style={styles.input}
                         placeholder="Address    (GA-xxx-xxxx)"
                         value={address}
-                        onChangeText={handleAddressChange}
+                        onChangeText={setAddress}
                     />
                     <TextInput style={styles.input}
                         placeholder="Password"
                         secureTextEntry={true}
                         value={password}
-                        onChangeText={handlePasswordChange}
+                        onChangeText={setPassword}
                     />
                     <TouchableOpacity style={styles.signupButton} onPress={handleSignUpPress}>
                         <Text style={styles.signupButtonText}>Register</Text>
@@ -100,7 +111,7 @@ const SignupScreen = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
-        </KeyboardAvoidingView>
+        // </KeyboardAvoidingView>
     );
 };
 

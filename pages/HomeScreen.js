@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, Image, SafeAreaView, KeyboardAvoidingView, StatusBar, Modal, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, Image, SafeAreaView, KeyboardAvoidingView, StatusBar, Modal, Platform, Alert } from 'react-native';
 import { useState } from 'react';
+import axios from 'axios';
 
 const HomeScreen = ({ navigation }) => {
     
@@ -10,32 +11,29 @@ const HomeScreen = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
 
-    //changes input text to that of the user
-    const handleEmailChange = (text) => { setEmail(text) };
-    const handlePasswordChange = (text) => { setPassword(text) };
-
+    
     const handleSignupPress = () => {
         navigation.navigate('SignupScreen'); //navigate to the sign up page to create account for new users
     };
 
-    const handleLoginPress = () => {
+    const handleLoginPress = async () => {
         //save login details of the user and grant them access to the app's features
 
-        // const userEmail = 'email';  //valid email of user
-        // const userPassword = '123'; //valid password of user
+        const userData = {
+            email,
+            password,
+        };
 
-        // if (email === userEmail && password === userPassword){
-        //     //navigate to the mainscreen on successful login
-        //     navigation.navigate('MainScreen');
-        //     setEmail('');
-        //     setPassword('');
-        // }
-        // else{
-        //     //show an error message for an invalid credential
-        //     alert('Invalid email or password');
-        // }
+        try {
+            const response = await axios.post('http://localhost:3000/api/users/login', userData);
+            console.log(response.data);
+            Alert.alert('Success', 'User login successfully');
+            navigation.navigate('MainScreen');
+        } catch (error) {
+            console.error(error);
+            Alert.alert('Error', 'Failed to login user');
+        }
 
-        navigation.navigate('MainScreen');
         setEmail('');
         setPassword('');
     };
@@ -62,7 +60,7 @@ const HomeScreen = ({ navigation }) => {
                     <TextInput style={styles.input}
                         placeholder="Email"
                         value={email}
-                        onChangeText={handleEmailChange}
+                        onChangeText={setEmail}
                         keyboardType='email-address'
                         autoCapitalize="none"
                         autoCorrect={false}
@@ -71,7 +69,7 @@ const HomeScreen = ({ navigation }) => {
                     placeholder="Password"
                     secureTextEntry={true}
                     value={password}
-                    onChangeText={handlePasswordChange}
+                    onChangeText={setPassword}
                     />
 
                     <TouchableOpacity onPress={() => setModalVisible(true)}>
